@@ -1,0 +1,16 @@
+{
+  "name": "winter-messaging",
+  "version": "0.1.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "~4.0"
+  },
+  "dependencies": {
+    "mongodb": "^2.2.8",
+    "openpgp": "2.3.x",
+    "socket.io": "1.4.x"
+  }
+}
