@@ -9,6 +9,7 @@
     "node": "~4.0"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "mongodb": "^2.2.8",
     "openpgp": "2.3.x",
     "socket.io": "1.4.x"
