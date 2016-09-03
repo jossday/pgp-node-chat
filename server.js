@@ -3,7 +3,7 @@ var http = require("http");
 httpServer = http.createServer(function(req, res){
   console.log("Server is running");
 });
-httpServer.listen(8080);
+httpServer.listen(80);
 
 /*-----MongoDB-------*/
 var mongoClient = require("mongodb").MongoClient;
@@ -61,7 +61,7 @@ io.sockets.on("connection", function(socket){
         console.log("Found the following records");
         console.log(docs);
         callback(docs);
-      });      
+      });
     }
 
     /*
