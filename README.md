@@ -1,6 +1,5 @@
 PGP Node Chat
 ==============
-
 Encrypted instant messaging web application based on Node.js, OpenPGP and Socket.io.
 Passport is used to authenticate and register users.
 
