@@ -1,0 +1,82 @@
+extends layout
+
+block content
+	div.container
+		div.row
+			div.col-sm-6.col-md-4.col-md-offset-4
+				#user
+					h1.text-center.login-title Welcome #{user.firstName}.
+					div#container
+						div#online
+						a(href='/signout', class='text-center new-account') Sign Out
+						script(src='http://localhost:3000/socket.io/socket.io.js')
+						script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+						script.
+							var socket = io.connect('http://localhost:3000');
+							var lastmsg = false;
+							socket.emit('logged', '#{user._id}', '#{user.username}', '#{user.password}');
+
+							socket.on('online', function(id, user){
+							if(id != '#{user._id}'){
+								$('#online').append("<a href='#' class='contacts' id='"+id+"'>"+user+"</a>");
+								$('#'+id).addClass('online');
+							}
+							});
+
+							socket.on('already', function(user){
+							if(user.id != '#{user._id}'){
+								$('#online').append("<a href='#' class='contacts' id='"+user.id+"'>"+user.username+"</a>");
+								$('#'+user.id).addClass('online');
+							}
+							});
+
+							socket.on('newMsg', function(messages){
+							console.log(messages);
+								if(!Array.isArray(messages)){
+									messages = [messages];
+								}
+								for(k in messages){
+									message = messages[k];
+									message.h = new Date(message.date).getHours();
+									message.m = new Date(message.date).getMinutes();
+									if(message.id_user2 != '#{user._id}'){
+										var messagerie = $('#user'+message.id_user2);
+									}
+									else{
+										var messagerie = $('#user'+message.id_user);
+									}
+									if(lastmsg != message.id_user){
+										messagerie.append('<div class="separator"></div>');
+										lastmsg = message.id_user;
+									}
+									messagerie.append('<p><b>'+message.username+' : </b>'+message.texte+message.h+':'+message.m+'</p>');
+								}
+								messagerie.animate({scrollTop: messagerie.prop('scrollHeight')}, 50);
+							});
+
+							socket.on('disusr', function(user){
+								$('#'+user.id).remove();
+							});
+
+							$('#online').on("click", ".contacts", function(){
+								var emetteur = '#{user._id}';
+								var destinataire = $(this).closest(".contacts").attr("id");
+								var username = $(this).closest(".contacts").html();
+								$('#container').append('<a href="#" class="close">x</a><div class="messenger" id="'+destinataire+'"><h3>'+username+'</h3><div class="messages" id="user'+destinataire+'"></div><form action="" class="msgForm"><input type="text" class="inputMessage" placeholder="Message..."><input type="submit" value="Envoyer" id="submitMsg"></form></div>')
+								$('#container').show();
+								socket.emit('loadMsg', emetteur, destinataire);
+							});
+
+							$('body').on("submit", ".msgForm", function(event){
+								event.preventDefault();
+								var msg = $(this).children('.inputMessage').val();
+								var dest = $(this).closest('.messenger').attr("id");
+								socket.emit('newMsg', msg, dest);
+								$(this).children('.inputMessage').val('');
+								$(this).children('.inputMessage').focus();
+							});
+
+							$('#container').on("click", ".close", function(){
+								$(this).closest("div").find(".messenger").hide();
+								$(this).closest(".close").hide();
+							});
