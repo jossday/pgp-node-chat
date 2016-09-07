@@ -28,6 +28,13 @@ sockets.init = function (server) {
         password = pass;
         users[me.id] = me;
         io.sockets.emit('online', id, user);
+        options = {
+            data: 'Coucou',      // input as String
+            passwords: 'test' // multiple passwords possible
+        };
+        openpgp.encrypt(options).then(function(ciphertext){
+          console.log(ciphertext.data);
+        });
       });
 
       //Load messages
