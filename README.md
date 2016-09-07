@@ -1,7 +1,8 @@
-passport-mongo
+PGP Node Chat
 ==============
 
-This repository serves as an example of a basic Node.js application which is using [Passport](http://passportjs.org/) as the authentication middleware for authenticating against a locally configured Mongo backend
+Encrypted instant messaging web application based on Node.js, OpenPGP and Socket.io.
+Passport is used to authenticate and register users.
 
 Steps to run the app
 =====================
