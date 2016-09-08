@@ -2,7 +2,14 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
   body
+  a.home(href='/home') M
+  div.container
+    div.row
+      div.col-sm-6.col-md-4.col-md-offset-4
+        h1.text-center.login-title Welcome to Messaging
+        p
+        | Messaging is an encrypted private chat which allows you to talk in privacy with your friends. We collect no personal data, no plaintext messages. Here is the kingdom of encryption.
     block content

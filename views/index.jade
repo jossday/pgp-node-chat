@@ -1,13 +1,9 @@
 extends layout
 
 block content
-	div.container
-		div.row
-			div.col-sm-6.col-md-4.col-md-offset-4
-				h1.text-center.login-title Welcome to Messaging
-					div.account-wall
+				div.account-wall
 						form(class='form-signin', action='/login', method='POST')
-							input(type='text', name='username' class='form-control', placeholder='Email',required, autofocus)
+							input(type='text', name='username' class='form-control', placeholder='Username',required, autofocus)
 							input(type='password', name='password' class='form-control', placeholder='Password', required)
 							button(class='btn btn-lg btn-primary btn-block', type='submit') Sign in
 							span.clearfix
